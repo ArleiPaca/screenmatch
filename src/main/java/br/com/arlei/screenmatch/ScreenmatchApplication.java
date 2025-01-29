@@ -41,9 +41,9 @@ public class ScreenmatchApplication implements CommandLineRunner {
 //		json = consumoApi.obterDados("https://omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=6585022c");
 //		DadosEpisodio dadosEpisodio = conversor.obterDados(json, DadosEpisodio.class);
 //		System.out.println(dadosEpisodio);
-
-
-
+//
+//
+//
 //		List<DadosTemporada> temporadas = new ArrayList<>();
 //
 //		for(int i = 1; i<=dados.totalTemporadas(); i++) {
@@ -53,8 +53,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 //
 //		}
 //		temporadas.forEach(System.out::println);
-
-
+//
+//
 	}
 }
 

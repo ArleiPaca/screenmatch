@@ -32,8 +32,8 @@ public class Principal {
 
 		for(int i = 1; i<=dados.totalTemporadas(); i++) {
 
-            System.out.println(ENDERECO + nomeSerie + "&season=" + i + API_KEY);
-            json = consumo.obterDados(ENDERECO + nomeSerie + "&season=" + i + API_KEY);
+            System.out.println(ENDERECO + nomeSerie.replace(" ","+") + "&season=" + i + API_KEY);
+            json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ","+") + "&season=" + i + API_KEY);
             DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
 			temporadas.add(dadosTemporada);
 

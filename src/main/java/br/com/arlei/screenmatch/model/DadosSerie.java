@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 // para renomear mais de um atributo
 // Anotação para ignorar propriedades desconhecidas
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record DadosSerie(@JsonAlias("Title") String titulo,
+public record DadosSerie(@JsonAlias("Title") String tituloSerie,
                          @JsonAlias("totalSeasons") Integer totalTemporadas,
                          @JsonAlias("imdbRating") String avaliacao) {
 }
