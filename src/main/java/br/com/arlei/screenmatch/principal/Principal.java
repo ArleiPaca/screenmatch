@@ -1,13 +1,17 @@
 package br.com.arlei.screenmatch.principal;
 
+import br.com.arlei.screenmatch.model.DadosEpisodio;
 import br.com.arlei.screenmatch.model.DadosSerie;
 import br.com.arlei.screenmatch.model.DadosTemporada;
+import br.com.arlei.screenmatch.model.Episodio;
 import br.com.arlei.screenmatch.service.ConsumoAPI;
 import br.com.arlei.screenmatch.service.ConverteDados;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
 
@@ -40,5 +44,39 @@ public class Principal {
 		}
 		temporadas.forEach(System.out::println);
 
+        for(int i=0;i < dados.totalTemporadas();i++){
+            List<DadosEpisodio> episodios = temporadas.get(i).episodios();
+            for(int j=0;j<episodios.size();j++){
+                System.out.println(episodios.get(j).titulo());
+            }
+
+        }
+
+        temporadas.forEach(
+            temporada -> temporada.episodios().forEach(
+                episodio -> System.out.println(episodio.titulo())
+            )
+        );
+
+        List<DadosEpisodio> episodios = temporadas.stream()
+                .flatMap(temporada -> temporada.episodios().stream())
+                .collect(Collectors.toList());
+        episodios.forEach(episodio -> System.out.println(episodio.titulo()));
+
+        // poderia retornar pelo metodo .toList porpem seria uma lista imutavel,c aso fosse acrescentar um novo episodio
+         // p flatMap recupera uma lista dentro de uma outro lista...
+
+
+        System.out.println("\nOs 5 melhores episódios são: ");
+        episodios.stream()
+                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
+                .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
+                .limit(5)
+                .forEach(System.out::println);
+
+        List<Episodio> episodio = temporadas.stream()
+                .flatMap(temporada -> temporada.episodios().stream())
+                .map(d -> new Episodio(d.numero(), d))
+                .collect(Collectors.toList());
     }
 }
