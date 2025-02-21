@@ -63,7 +63,7 @@ public class Principal {
                 .collect(Collectors.toList());
         episodios.forEach(episodio -> System.out.println(episodio.titulo()));
 
-        // poderia retornar pelo metodo .toList porpem seria uma lista imutavel,c aso fosse acrescentar um novo episodio
+        // poderia retornar pelo metodo .toList porem seria uma lista imutavel,c aso fosse acrescentar um novo episodio
          // p flatMap recupera uma lista dentro de uma outro lista...
 
 

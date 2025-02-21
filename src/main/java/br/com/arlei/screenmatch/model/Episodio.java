@@ -3,6 +3,7 @@ package br.com.arlei.screenmatch.model;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Episodio {
 
@@ -18,14 +19,18 @@ public class Episodio {
         this.titulo = d.titulo();
         this.numeroEpisodio = d.numero();
 
-        if (d.avaliacao().equals("N/A"))
-            this.avaliacao = 0.0;
-        else
+        try {
             this.avaliacao =
                 Double.parseDouble(d.avaliacao());
+        } catch (NumberFormatException e) {
+            this.avaliacao = 0.0;
+        }
 
-
-        this.dataLancamento = LocalDate.parse(d.dataLancamento());
+        try {
+            this.dataLancamento = LocalDate.parse(d.dataLancamento());
+        } catch (DateTimeParseException e) {
+            this.dataLancamento = LocalDate.now();
+        }
 
     }
 
@@ -59,5 +64,14 @@ public class Episodio {
 
     public void setDataLancamento(LocalDate dataLancamento) {
         this.dataLancamento = dataLancamento;
+    }
+
+    @Override
+    public String toString() {
+        return "temporada=" + temporada +
+                ", titulo='" + titulo + '\'' +
+                ", numeroEpisodio=" + numeroEpisodio +
+                ", avaliacao=" + avaliacao +
+                ", dataLancamento=" + dataLancamento;
     }
 }
