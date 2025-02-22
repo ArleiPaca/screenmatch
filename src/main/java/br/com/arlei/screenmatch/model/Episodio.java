@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 
 public class Episodio {
 
+
     private String temporada;
     private String titulo;
     private String numeroEpisodio;
@@ -33,6 +34,15 @@ public class Episodio {
         }
 
     }
+
+    public String getTemporada() {
+        return temporada;
+    }
+
+    public void setTemporada(String temporada) {
+        this.temporada = temporada;
+    }
+
 
     public String getTitulo() {
         return titulo;

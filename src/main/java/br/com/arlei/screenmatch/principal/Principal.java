@@ -7,6 +7,8 @@ import br.com.arlei.screenmatch.model.Episodio;
 import br.com.arlei.screenmatch.service.ConsumoAPI;
 import br.com.arlei.screenmatch.service.ConverteDados;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -74,9 +76,29 @@ public class Principal {
                 .limit(5)
                 .forEach(System.out::println);
 
-        List<Episodio> episodio = temporadas.stream()
+        List<Episodio> episodiosClasse = temporadas.stream()
                 .flatMap(temporada -> temporada.episodios().stream())
                 .map(d -> new Episodio(d.numero(), d))
                 .collect(Collectors.toList());
+
+
+        System.out.println("A partir de que ano você deseja ver os episódios? ");
+
+        var ano = leitura.nextInt();
+        leitura.nextLine();
+
+        LocalDate dataBusca = LocalDate.of(ano, 1, 1);
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        episodiosClasse.stream()
+                .filter(e -> e.getDataLancamento() != null && e.getDataLancamento().isAfter(dataBusca))
+                .forEach(e -> System.out.println(
+                        "Temporada: " + e.getTemporada() +
+                                " Episódio: " + e.getTitulo() +
+                                " Data lançamento: " + e.getDataLancamento().format(formatador)
+                ));
+
     }
+
+
 }
