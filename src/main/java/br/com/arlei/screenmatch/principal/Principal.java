@@ -9,10 +9,7 @@ import br.com.arlei.screenmatch.service.ConverteDados;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -102,6 +99,20 @@ public class Principal {
                                 " Episódio: " + e.getTitulo() +
                                 " Data lançamento: " + e.getDataLancamento().format(formatador)
                 ));
+
+
+        // exemplo com reduce...
+
+        List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
+
+        int soma = numeros.stream()
+                .peek(n -> System.out.println("Elemento: " + n))
+                .map(n -> n * 2)
+                .peek(n -> System.out.println("Conteúdo depois do map: " + n))
+                .reduce(0, (total, numero) -> total + numero);
+
+        System.out.println("A soma dos números é: " + soma);
+
 
     }
 
