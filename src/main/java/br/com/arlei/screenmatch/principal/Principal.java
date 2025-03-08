@@ -114,6 +114,16 @@ public class Principal {
             System.out.println("Episódio não encontrado!");
         }
 
+
+        // agrupando por temporada e calculando a média de avaliação, Map e Collectors uso.
+
+        Map<String, Double> avaliacoesPorTemporada = episodiosClasse.stream()
+                .filter(e -> e.getAvaliacao() > 0.0)
+                .collect(Collectors.groupingBy(Episodio::getTemporada,
+                        Collectors.averagingDouble(Episodio::getAvaliacao)));
+        System.out.println(avaliacoesPorTemporada);
+
+
         // exemplo com reduce...
 
         List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
@@ -126,6 +136,30 @@ public class Principal {
 
         System.out.println("A soma dos números é: " + soma);
 
+
+        /*
+
+
+        public class ExemploFindAnyParallelStream {
+            public static void main(String[] args) {
+                List<Integer> numeros = new ArrayList<>();
+                for (int i = 1; i <= 100; i++) {
+                    numeros.add(i);
+                }
+
+                // Utilizando parallelStream para encontrar um elemento qualquer em paralelo
+                Optional<Integer> numeroQualquer = numeros.parallelStream()
+                        .filter(numero -> numero % 10 == 0) // Filtra os números que são múltiplos de 10
+                        .findAny();
+
+                if (numeroQualquer.isPresent()) {
+                    System.out.println("Encontrado: " + numeroQualquer.get());
+                } else {
+                    System.out.println("Nenhum número encontrado.");
+                }
+            }
+    }
+         */
 
     }
 
