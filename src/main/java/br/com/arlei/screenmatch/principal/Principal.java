@@ -169,6 +169,99 @@ public class Principal {
                 }
             }
     }
+
+
+    ---- outro bom exemplo
+    public class Aluno {
+    private String nome;
+    private LocalDate nascimento;
+
+    public Aluno(String nome, LocalDate nascimento) {
+        this.nome = nome;
+        this.nascimento = nascimento;
+    }
+
+    public int getIdade() {
+        Period periodo = Period.between(nascimento, LocalDate.now());
+        return periodo.getYears();
+    }
+
+    //getters, setters e toString omitidos
+
+    public class Principal {
+    public static void main(String[] args) {
+        List<Aluno> alunos = Arrays.asList(
+                new Aluno("Alice", LocalDate.of(2002, 10, 20)),
+                new Aluno("Bob", LocalDate.of(1980, 8, 9)),
+                new Aluno("Carlos", LocalDate.of(2001, 01, 28)),
+                new Aluno("David", LocalDate.of(2003, 05, 12)),
+                new Aluno("Eva", LocalDate.of(2005, 12, 03))
+        );
+
+        IntSummaryStatistics stats = alunos.stream()
+                .mapToInt(Aluno::getIdade)
+                .summaryStatistics();
+
+        // Exibindo as estatísticas
+        System.out.println("Idade média: " + stats.getAverage());
+        System.out.println("Mínima idade: " + stats.getMin());
+        System.out.println("Máxima idade: " + stats.getMax());
+        System.out.println("Total de alunos: " + stats.getCount());
+    }
+}
+
+}
+
+O Java Streams é uma característica poderosa que oferece a capacidade de realizar operações de
+ processamento de dados complexas de forma eficiente e em paralelo, sobre collections, arrays e I/O channels. Quando você começa a entender o Java Streams melhor, você nota que ele pode ser usado em muitas maneiras diferentes para fazer seu código mais limpo e mais eficiente. Vamos olhar mais a fundo para os usos avançados de Java Streams e como você pode começar a integrá-los em seus projetos.
+
+Uso avançado de Java Streams
+Quando trabalhamos com Java Streams, muitas vezes vamos além do uso básico e adentramos em conceitos mais avançados e complexos. Vamos ver alguns exemplos:
+
+1 - Streams Infinitos
+
+Streams infinitos, ou “infinite Streams”, são streams que não têm um
+tamanho definido. Eles são úteis quando queremos gerar uma sequência de números ou valores. Aqui está um exemplo de como criamos um Stream infinito com o método iterate:
+
+Stream.iterate(0, n -> n + 1)
+     .limit(10)
+     .forEach(System.out::println);
+
+     No exemplo acima, começamos com o número 0 e adicionamos 1 a cada iteração para gerar
+      uma sequência numérica. Utilizamos o método limit() para restringir o Stream infinito a 10 elementos e usamos forEach para imprimi-los.
+
+
+ 2 - FlatMap
+
+O método flatMap é uma operação intermediária que é usada para transformar um Stream de
+ coleções em um Stream de elementos. Aqui está um exemplo de como o flatMap é usado:
+
+List<List<String>> list = List.of(
+  List.of("a", "b"),
+  List.of("c", "d")
+);
+
+Stream<String> stream = list.stream()
+  .flatMap(Collection::stream);
+
+stream.forEach(System.out::println);
+Neste exemplo, transformamos um Stream de List para um Stream de Strings.
+
+
+ 3 - Redução de Streams
+
+Stream.reduce() é uma operação terminal
+que é utilizada para reduzir o conteúdo de um Stream para um único valor.
+
+List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+Optional<Integer> result = numbers.stream().reduce(Integer::sum);
+result.ifPresent(System.out::println); //prints 15
+
+No exemplo acima, somamos todos os números da lista usando o método reduce().
+
+Lembre-se que o Java Streams é uma ferramenta poderosa que pode tornar seu código mais elegante e eficiente. Continue praticando e explorando todas as diferentes operações e métodos disponíveis para você com Java Streams para se
+tornar mais hábil em lidar com dados em suas aplicações.
+
          */
 
     }
