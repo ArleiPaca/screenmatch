@@ -101,6 +101,19 @@ public class Principal {
                 ));
 
 
+        // Optional e mito comun no uso com repositories, pois ele pode ou nao retornar um valor e facilita usando seus metodos.
+        System.out.println("Digite um trecho do título do episódio");
+        var trechoTitulo = leitura.nextLine();
+        Optional<Episodio> episodioBuscado = episodiosClasse.stream()
+                .filter(e -> e.getTitulo().toUpperCase().contains(trechoTitulo.toUpperCase()))
+                .findFirst();
+        if(episodioBuscado.isPresent()){
+            System.out.println("Episódio encontrado!");
+            System.out.println("Temporada: " + episodioBuscado.get().getTemporada());
+        } else {
+            System.out.println("Episódio não encontrado!");
+        }
+
         // exemplo com reduce...
 
         List<Integer> numeros = Arrays.asList(1, 2, 3, 4, 5);
