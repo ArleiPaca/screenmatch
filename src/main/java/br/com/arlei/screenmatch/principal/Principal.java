@@ -123,6 +123,16 @@ public class Principal {
                         Collectors.averagingDouble(Episodio::getAvaliacao)));
         System.out.println(avaliacoesPorTemporada);
 
+        // classe que faz um resumo de estatisticas de um stream de dados, como média, maior, menor, quantidade
+
+        DoubleSummaryStatistics est = episodiosClasse.stream()
+                .filter(e -> e.getAvaliacao() > 0.0)
+                .collect(Collectors.summarizingDouble(Episodio::getAvaliacao));
+        System.out.println(est);
+        System.out.println("Média: " + est.getAverage());
+        System.out.println("Melhor episódio: " + est.getMax());
+        System.out.println("Pior episódio: " + est.getMin());
+        System.out.println("Quantidade: " + est.getCount());
 
         // exemplo com reduce...
 
