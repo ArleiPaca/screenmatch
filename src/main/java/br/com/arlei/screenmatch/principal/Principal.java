@@ -60,6 +60,7 @@ public class Principal {
             )
         );
 
+        
         List<DadosEpisodio> episodios = temporadas.stream()
                 .flatMap(temporada -> temporada.episodios().stream())
                 .collect(Collectors.toList());
@@ -68,12 +69,16 @@ public class Principal {
         // poderia retornar pelo metodo .toList porem seria uma lista imutavel,c aso fosse acrescentar um novo episodio
          // p flatMap recupera uma lista dentro de uma outro lista...
 
-
-        System.out.println("\nOs 5 melhores episódios são: ");
+// Usar o peek para debugar o código
+        System.out.println("\nOs 10 melhores episódios são: ");
         episodios.stream()
                 .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))
+                .peek(e -> System.out.println("Primeiro filtro(N/A) " + e))
                 .sorted(Comparator.comparing(DadosEpisodio::avaliacao).reversed())
+                .peek(e -> System.out.println("Segundo filtro(ordenado) " + e))
                 .limit(5)
+                .peek(e -> System.out.println("Terceiro filtro(limit) " + e))
+                .map(e -> e.titulo().toUpperCase())
                 .forEach(System.out::println);
 
         List<Episodio> episodiosClasse = temporadas.stream()
